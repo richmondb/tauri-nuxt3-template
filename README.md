@@ -1,8 +1,18 @@
+# Tauri with Nuxtjs Template
+## This is a template for starting Tauri desktop application using NUXTjs as the frontend framework.
+## Additonal Library / Framework is already preconfigured like Tailwind CSS, DaisyUI
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
+#  Framework / Library
+- Tauri (https://tauri.app/)
+- NUXT (https://nuxt.com/)
+- Tailwind CSS (https://tailwindcss.com/)
+- DaisyUI (https://daisyui.com/)
+
+
 
 Make sure to install the dependencies:
 
