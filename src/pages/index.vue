@@ -1,13 +1,21 @@
 <script lang="ts">
 import {invoke} from "@tauri-apps/api";
+import { ref } from 'vue'
 
 export default {
-  mounted: function (): void {
+  mounted: async function (): Promise<void> {
 
-    invoke('greet', {name: 'Tauri'}).then((value) => {
+    await invoke('greet', {name: 'Tauri'}).then((value) => {
       console.log(value);
-      window.header.innerHTML = value;
-    });
+      const headerElement = document.getElementById("header");
+      if (headerElement) {
+        headerElement.innerHTML = value as string; // Type assertion to string
+      } else {
+        console.error("Header element not found.");
+      }
+    }).catch((e) => {
+      console.error(e);
+    })
     // println!("Hello World");
   }
 };
@@ -15,6 +23,7 @@ export default {
 </script>
 
 <template>
+  <h1 id="header" class="text-2xl text-center font-bold"></h1>
   <div class="p-4 flex gap-4">
     <button class="btn">Hello daisyUI</button>
     <select class="select w-full max-w-xs" v-model="colorMode.preference">
@@ -26,8 +35,11 @@ export default {
     <div class="hero-content text-center">
       <div class="max-w-md">
         <h1 class="text-5xl font-bold">Hello there, from NUXT.js, Tauri, Tailwind CSS, DaisyUI</h1>
-        <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-        <button class="btn btn-primary">Get Started</button>
+        <p class="py-6">Test</p>
+        <div class="w-full flex flex-col items-center gap-3">
+          <h1  class="text-2xl text-center font-bold">Click Button to Increment Count</h1>
+          <button v-on:click="click" class="btn btn-primary max-w-fit">{{ count }}</button>
+        </div>
       </div>
     </div>
   </div>
@@ -35,6 +47,13 @@ export default {
 
 
 <script setup lang="ts">
+
+const count = ref(0)
+
+function click(): void {
+  count.value++
+}
+
 const colorMode = useColorMode();
 const themes = [
   'system',
